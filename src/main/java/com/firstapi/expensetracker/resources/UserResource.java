@@ -3,6 +3,7 @@ package com.firstapi.expensetracker.resources;
 import com.firstapi.expensetracker.domain.User;
 import com.firstapi.expensetracker.repositories.UserRepository;
 import com.firstapi.expensetracker.services.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,16 @@ public class UserResource {
         User user = userService.registerUser(firstName, lastName, email, password);
         Map<String, String> map = new HashMap<>();
         map.put("message", "registered successfully");
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap){
+        String email = (String) userMap.get("email");
+        String password = (String) userMap.get("password");
+        User user = userService.validateUser(email, password);
+        Map<String, String> map = new HashMap<>();
+        map.put("message", "loggedIn successfully");
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }
