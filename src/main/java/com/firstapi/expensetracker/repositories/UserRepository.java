@@ -2,17 +2,20 @@ package com.firstapi.expensetracker.repositories;
 
 import com.firstapi.expensetracker.domain.User;
 import com.firstapi.expensetracker.exceptions.EtAuthException;
-import org.mindrot.jbcrypt.BCrypt;
+//import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+
+import static org.springframework.security.crypto.bcrypt.BCrypt.gensalt;
 
 /**
  * Repository is a Spring annotation that indicates that the decorated
@@ -38,7 +41,7 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public Integer create(String firstName, String lastName, String email, String password) throws EtAuthException {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
+        String hashedPassword = BCrypt.hashpw(password, gensalt(10));
         try{
             KeyHolder keyHolder = new GeneratedKeyHolder();
 
