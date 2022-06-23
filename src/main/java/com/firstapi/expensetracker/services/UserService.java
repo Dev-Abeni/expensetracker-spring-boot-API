@@ -2,6 +2,7 @@ package com.firstapi.expensetracker.services;
 
 import com.firstapi.expensetracker.domain.User;
 import com.firstapi.expensetracker.exceptions.EtAuthException;
+import com.firstapi.expensetracker.repositories.IUserRepository;
 import com.firstapi.expensetracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,7 +37,7 @@ public class UserService implements IUserService{
      * bean autowiring.
      * */
     @Autowired
-    UserRepository userRepository;
+    IUserRepository userRepository;
 
     @Override
     public User validateUser(String email, String password) throws EtAuthException {

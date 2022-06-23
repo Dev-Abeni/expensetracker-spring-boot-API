@@ -1,10 +1,8 @@
 package com.firstapi.expensetracker.resources;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.firstapi.expensetracker.Constants;
 import com.firstapi.expensetracker.domain.User;
-import com.firstapi.expensetracker.services.UserService;
+import com.firstapi.expensetracker.services.IUserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ import java.util.Map;
 public class UserResource {
 
     @Autowired
-    UserService userService;
+    IUserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap){
